@@ -1,0 +1,13 @@
+@import "../App.scss";
+
+.layout {
+  background: #000
+    url(http://www.script-tutorials.com/demos/360/images/stars.png) repeat top
+    center;
+  backdrop-filter: blur(15px);
+}
+
+.blur {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(15px);
+}

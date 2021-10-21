@@ -1,9 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
-import propTypes from "prop-types";
+//import { connect } from "react-redux";
+//import propTypes from "prop-types";
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  add,
+  remove,
+  selectChampion
+} from '../features/favorite/favoritesSlice';
+
 import { Card, Button } from "react-bootstrap";
 
 // import { setFavorite, deleteFavorite } from "../actions";
+
+
 import "../assets/styles/components/Character.scss";
 import { ReactComponent as SVGStar } from "../assets/static/icons/star.svg";
 // import CharacterDetail from "./CharacterDetail";
@@ -11,34 +20,39 @@ import { ReactComponent as SVGStar } from "../assets/static/icons/star.svg";
 // import useModal from "../custom-hooks/useModal";
 
 const Champion = ({ data }) => {
+  const favoriteChampions = useSelector(selectChampion);
+  const dispatch = useDispatch();
+
   // const { modal, handleCloseModal, handleOpenModal } = useModal();
-  // const [favorite, setFavorite] = useState(false);
-  // const { data, favoriteCharacters } = props;
+  const [favorite, setFavorite] = useState(false);
+  // const { data, favoriteChampions } = props;
   // const { id, image, name, status, species, gender } = data;
 
-  // const handleSetFavorite = () => {
-  //   props.setFavorite({ data });
-  //   setFavorite(true);
-  // };
+  const handleSetFavorite = () => {
+    // props.setFavorite({ data });
+    dispatch(add(data));
+    setFavorite(true);
+  };
 
-  // const handleDeleteFavorite = (itemId) => {
-  //   props.deleteFavorite(itemId);
-  //   setFavorite(false);
-  // };
+  const handleDeleteFavorite = (itemId) => {
+    dispatch(remove(itemId));
+    setFavorite(false);
+  };
 
-  // const isFavorite = () => {
-  //   const result = favoriteCharacters.filter(
-  //     (favoriteCharacter) => favoriteCharacter.data.id === id
-  //   );
-  //   if (result.length) {
-  //     setFavorite(true);
-  //   }
-  // };
+  const isFavorite = () => {
+    const result = favoriteChampions.filter(
+      (champion) => champion.id === data.id
+    );
+    if (result.length) {
+      setFavorite(true);
+    }
+  };
 
-  // useEffect(() => {
-  //   isFavorite();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  useEffect(() => {
+    isFavorite();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <Card bg="dark" text="white">
       <Card.Img
@@ -47,7 +61,17 @@ const Champion = ({ data }) => {
       />
       <Card.ImgOverlay>
         <Card.Title className="bg-side">{data.name}</Card.Title>
-        
+        {favorite ? (
+          <SVGStar
+            onClick={() => handleDeleteFavorite(data.id)}
+            className="character__details-star favorite"
+          />
+        ) : (
+          <SVGStar
+            onClick={handleSetFavorite}
+            className="character__details-star noFavorite"
+          />
+        )}
       </Card.ImgOverlay>
     </Card>
   );

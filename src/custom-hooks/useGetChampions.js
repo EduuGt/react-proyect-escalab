@@ -13,7 +13,6 @@ const useGetChampions = () => {
         "http://ddragon.leagueoflegends.com/cdn/11.20.1/data/en_US/champion.json"
       );
       const result = Object.values(response.data.data);
-      console.log(result);
       setChampions(result);
       setLoading(false);
       setError(false);

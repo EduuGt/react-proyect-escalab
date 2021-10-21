@@ -1,4 +1,4 @@
-@import '../App.scss';
+@import "../App.scss";
 
 .character {
   width: 300px;
@@ -20,11 +20,15 @@
 
 .character__details-star {
   cursor: pointer;
-  width: 20px;
-  height: 20px;
+  // width: 40px;
+  // height: 40px;
+  width: 5vw;
+  height: 5vh;
   position: relative;
-  top: -25px;
-  left: 245px;
+  top: 80%;
+  left: 65%;
+  z-index: 1;
+  fill: #ffffff;
 }
 
 .character__details-star.favorite {
@@ -68,4 +72,9 @@
   font-weight: bolder;
 }
 
-.bg-side {background-color: #0000009d;}
+.estrellita {
+}
+
+.bg-side {
+  background-color: #0000009d;
+}
