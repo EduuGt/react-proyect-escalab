@@ -1,6 +1,6 @@
 import React from "react";
 import "../assets/styles/components/Empty.scss";
-import emptyImage from "../assets/static/images/empty.png";
+import emptyImage from "../assets/static/images/amumu.png";
 
 const Empty = () => (
   <div className="empty">

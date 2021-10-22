@@ -4,6 +4,7 @@ import Champion from "./Champion";
 import Error from "./Error";
 import Loader from "./Loader";
 import useGetChampions from "../custom-hooks/useGetChampions";
+import SearchChampions from "./SearchChampions";
 import { Container, Row } from "react-bootstrap";
 
 const ChampionList = () => {
@@ -22,7 +23,9 @@ const ChampionList = () => {
         <Error />
       ) : (
         <Container fluid="md">
+          <SearchChampions />
           <Row xm={1} xs={3} md={5}>
+
             {champions.map((champion) => (
               <Champion key={champion.key} data={champion} />
             ))}
