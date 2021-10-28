@@ -13,7 +13,7 @@ const useGetChampions = () => {
       setLoading(true);
 
       const response = await axios.get(
-        "http://ddragon.leagueoflegends.com/cdn/11.20.1/data/en_US/champion.json"
+        "https://ddragon.leagueoflegends.com/cdn/11.20.1/data/en_US/champion.json"
       );
       const result = Object.values(response.data.data);
 
