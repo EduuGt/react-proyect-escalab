@@ -1,35 +1,21 @@
 import React, { useState, useEffect } from "react";
-//import { connect } from "react-redux";
-//import propTypes from "prop-types";
-import { useSelector, useDispatch } from 'react-redux';
+import propTypes from "prop-types";
+import { useSelector, useDispatch } from "react-redux";
 import {
   add,
   remove,
-  selectChampion
-} from '../features/favorite/favoritesSlice';
-
-import { Card, Button } from "react-bootstrap";
-
-// import { setFavorite, deleteFavorite } from "../actions";
-
-
+  selectChampion,
+} from "../features/favorite/favoritesSlice";
+import { Card } from "react-bootstrap";
 import "../assets/styles/components/Character.scss";
-import { ReactComponent as SVGStar } from "../assets/static/icons/star.svg";
-// import CharacterDetail from "./CharacterDetail";
-// import Modal from "./Modal";
-// import useModal from "../custom-hooks/useModal";
+import SVGStar from "../assets/static/icons/star.svg";
 
-const Champion = ({ data }) => {
+const Champion = ({ data, setIdChampionSelected }) => {
   const favoriteChampions = useSelector(selectChampion);
   const dispatch = useDispatch();
-
-  // const { modal, handleCloseModal, handleOpenModal } = useModal();
   const [favorite, setFavorite] = useState(false);
-  // const { data, favoriteChampions } = props;
-  // const { id, image, name, status, species, gender } = data;
 
   const handleSetFavorite = () => {
-    // props.setFavorite({ data });
     dispatch(add(data));
     setFavorite(true);
   };
@@ -37,6 +23,11 @@ const Champion = ({ data }) => {
   const handleDeleteFavorite = (itemId) => {
     dispatch(remove(itemId));
     setFavorite(false);
+  };
+
+  const handleShowDetail = () => {
+    console.log(data);
+    setIdChampionSelected(data.id);
   };
 
   const isFavorite = () => {
@@ -59,8 +50,13 @@ const Champion = ({ data }) => {
         variant="top"
         src={`http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${data.id}_0.jpg`}
       />
-      <Card.ImgOverlay>
+      <Card.ImgOverlay
+        onClick={() => handleShowDetail()}
+        style={{ cursor: "pointer" }}
+      >
         <Card.Title className="bg-side">{data.name}</Card.Title>
+      </Card.ImgOverlay>
+      <Card.Body className="pt-1 pb-1">
         {favorite ? (
           <SVGStar
             onClick={() => handleDeleteFavorite(data.id)}
@@ -72,18 +68,16 @@ const Champion = ({ data }) => {
             className="character__details-star noFavorite"
           />
         )}
-      </Card.ImgOverlay>
+      </Card.Body>
     </Card>
   );
 };
 
 // propsTypes
-// Character.propTypes = {
-//   data: propTypes.object,
-//   //name: propTypes.string,
-//   //gender: propTypes.string,
-//   //id: propTypes.number,
-// };
+Champion.propTypes = {
+  data: propTypes.object,
+  setIdChampionSelected: propTypes.func,
+};
 
 // native redux functions
 // const mapStateToProps = (state) => {

@@ -15,7 +15,8 @@ export const favoritesSlice = createSlice({
       state.favoriteChampions = state.favoriteChampions.filter(
         (champion) => champion.id !== action.payload
       )
-    }
+    },
+    
   }
 });
 
